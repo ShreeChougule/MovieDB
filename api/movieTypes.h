@@ -17,7 +17,7 @@ typedef enum language { HINDI = 0, ENGLIS, MARATHI, TAMIL } lanuguage_e;
 
 typedef enum list_operations{ADD_MOVIE=0, UPDATE_MOVIE, REMOVE_MOVIE}list_operations_e;
 
-typedef enum error{}error_e;
+typedef enum error{NO_ERROR,GENERIC_ERROR,NOT_IMPL}error_e;
 
 typedef enum genre {
   HORROR = 0,

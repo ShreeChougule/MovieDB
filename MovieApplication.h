@@ -14,9 +14,9 @@ class MovieApplication {
 public:
 	MovieApplication();
 	virtual ~MovieApplication();
-	int showMovies();
-	int searchMovie();
-	int updateMovieList(list_operations_e);
+	error_e showMovies();
+	error_e searchMovie();
+	error_e updateMovieList(list_operations_e);
 
 private:
 	MovieManagerImpl* m_movieMgr;

@@ -16,20 +16,15 @@ MovieManagerImpl* MovieManagerImpl::getInstance(){
     return instance;
 }
 
-int MovieManagerImpl::releaseInstance(){
+error_e MovieManagerImpl::releaseInstance(){
 	delete instance;
 	instance=nullptr;
-	return 0;
+	return NO_ERROR;
 }
 
-int MovieManagerImpl::Initialize(){
-//	m_movieBrowser =
-	createMovieList();
-	return 0;
-}
-
-int MovieManagerImpl::createMovieList(){
-	return 0;
+error_e MovieManagerImpl::Initialize(){
+//	m_movieBrowser->createMovieList();
+	return NO_ERROR;
 }
 
 movie_list MovieManagerImpl::searchtMovieList(){
@@ -43,6 +38,11 @@ movie_list MovieManagerImpl::gettMovieList(){
 	movie_list list;
 
 	return list;
+}
+
+error_e updateMovieList(list_operations_e op,Movie&& movie){
+
+	return NO_ERROR;
 }
 
 

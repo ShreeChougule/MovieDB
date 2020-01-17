@@ -16,16 +16,17 @@
 class MovieManagerImpl {
 public:
 	static MovieManagerImpl* getInstance();
-	static int releaseInstance();
-	int Initialize();
+	static error_e releaseInstance();
+	error_e Initialize();
 	movie_list gettMovieList();
 	movie_list searchtMovieList();
-
+	error_e updateMovieList(list_operations_e,Movie&&);
 
 private:
-	MovieManagerImpl(){}
+	MovieManagerImpl(){
+		m_movieBrowser=std::make_unique<MovieBrowserImpl>();
+	}
 	virtual ~MovieManagerImpl(){}
-	int createMovieList();
 
 private:
     static MovieManagerImpl *instance;

@@ -15,17 +15,17 @@ MovieApplication::~MovieApplication() {
 	MovieManagerImpl::releaseInstance();
 }
 
-int MovieApplication::showMovies(){
+error_e MovieApplication::showMovies(){
 	m_movieMgr->gettMovieList();
-	return 0;
+	return NO_ERROR;
 }
 
-int MovieApplication::searchMovie(){
+error_e MovieApplication::searchMovie(){
 	m_movieMgr->searchtMovieList();
-	return 0;
+	return NO_ERROR;
 }
 
-int MovieApplication::updateMovieList(list_operations_e op){
-	return 0;
+error_e MovieApplication::updateMovieList(list_operations_e op){
+	return NO_ERROR;
 }
 
