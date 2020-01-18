@@ -7,14 +7,12 @@
 
 #include "MovieBrowserImpl.h"
 
-MovieBrowserImpl::MovieBrowserImpl() {
+namespace moviedb {
 
-}
+MovieBrowserImpl::MovieBrowserImpl() {}
 
-MovieBrowserImpl::~MovieBrowserImpl() {
-}
+MovieBrowserImpl::~MovieBrowserImpl() {}
 
-error_e MovieBrowserImpl::createMovieList(){
+error_e MovieBrowserImpl::createMovieList() { return NO_ERROR; }
 
-	return NO_ERROR;
-}
+}  // namespace moviedb
