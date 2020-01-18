@@ -6,15 +6,31 @@
  */
 
 #include "MovieDatabaseImpl.h"
+#include <iostream>
 
 namespace moviedb {
 
-MovieDatabaseImpl::MovieDatabaseImpl() {
-    // TODO Auto-generated constructor stub
+u_int MovieDatabaseImpl::m_movieId = 0;
+
+MovieDatabaseImpl::MovieDatabaseImpl() {}
+
+MovieDatabaseImpl::~MovieDatabaseImpl() {}
+
+error_e MovieDatabaseImpl::insertMovieData(Movie* objPtr) {
+    dbMap.emplace(std::make_pair(++m_movieId, objPtr));
+    return NO_ERROR;
 }
 
-MovieDatabaseImpl::~MovieDatabaseImpl() {
-    // TODO Auto-generated destructor stub
+error_e MovieDatabaseImpl::deleteMovieData(u_int key) {
+    dbMap.erase(key);
+    return NO_ERROR;
+}
+
+error_e MovieDatabaseImpl::getAllMovieData(movie_list& list) {
+    if (dbMap.empty()) return DATA_NOT_FOUND;
+
+    for (auto it : dbMap) { list.push_back(it.second); }
+    return NO_ERROR;
 }
 
 }  // namespace moviedb

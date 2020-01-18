@@ -15,12 +15,12 @@
 
 namespace moviedb {
 
-typedef unsigned int u_int;
+using u_int = unsigned int;
 typedef enum language { HINDI = 0, ENGLIS, MARATHI, TAMIL } lanuguage_e;
 
 typedef enum list_operations { ADD_MOVIE = 0, UPDATE_MOVIE, REMOVE_MOVIE } list_operations_e;
 
-typedef enum error { NO_ERROR, GENERIC_ERROR, NOT_IMPL } error_e;
+typedef enum error { NO_ERROR, GENERIC_ERROR, DATA_NOT_FOUND, NOT_IMPL } error_e;
 
 typedef enum genre {
     HORROR = 0,
@@ -52,9 +52,7 @@ class Movie {
           m_hero(hero),
           m_heroine(heroine),
           m_director(director),
-          m_casting(casting) {
-        std::cout << "\nDefault ctor";
-    }
+          m_casting(casting) {}
 
     virtual ~Movie() {}
 
@@ -66,9 +64,7 @@ class Movie {
           m_hero(Source.m_hero),
           m_heroine(Source.m_heroine),
           m_director(Source.m_director),
-          m_casting(Source.m_casting) {
-        std::cout << "\nCopy ctor";
-    }
+          m_casting(Source.m_casting) {}
 
     Movie(Movie&& Source)
         : m_genre(std::move(Source.m_genre)),
@@ -78,9 +74,7 @@ class Movie {
           m_hero(std::move(Source.m_hero)),
           m_heroine(std::move(Source.m_heroine)),
           m_director(std::move(Source.m_director)),
-          m_casting(std::move(Source.m_casting)) {
-        std::cout << "\nMove ctor";
-    }
+          m_casting(std::move(Source.m_casting)) {}
 
     Movie& operator=(const Movie& Source) {
         m_genre = Source.m_genre;
@@ -104,6 +98,16 @@ class Movie {
         m_director = std::move(Source.m_director);
         m_casting = std::move(Source.m_casting);
         return *this;
+    }
+
+    void show() {
+        std::cout << "\n##### Title : " << m_title;
+        std::cout << "\n##### Hero : " << m_hero;
+        std::cout << "\n##### Heroine : " << m_heroine;
+        std::cout << "\n##### Director : " << m_director;
+        std::cout << "\n##### Casting : " << m_casting;
+        std::cout << "\n##### Genre : " << m_genre;
+        std::cout << "\n##### Language : " << m_language;
     }
 
    public:

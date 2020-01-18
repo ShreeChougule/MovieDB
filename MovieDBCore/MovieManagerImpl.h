@@ -5,7 +5,7 @@
  *      Author: kpit
  */
 #include "MovieBrowserImpl.h"
-#include "MovieDataBase/DBManager.h"
+#include "Sources/SourceProvider.h"
 
 #ifndef MOVIEMANAGERIMPL_H_
 #define MOVIEMANAGERIMPL_H_
@@ -17,21 +17,21 @@ class MovieManagerImpl {
     static MovieManagerImpl* getInstance();
     static error_e releaseInstance();
     error_e Initialize();
-    movie_list gettMovieList();
-    movie_list searchtMovieList();
+    error_e OnRequestMovieList(movie_list&);
+    error_e OnSearchtMovieList();
 
     // use template or auto
-    error_e updateMovieList(list_operations_e, u_int);
-    error_e updateMovieList(list_operations_e, Movie&&);
+    error_e OnUpdateMovieList(list_operations_e, u_int);
+    error_e OnUpdateMovieList(list_operations_e, Movie*);
 
    private:
-    MovieManagerImpl() { m_movieBrowser = std::make_unique<MovieBrowserImpl>(); }
-    virtual ~MovieManagerImpl() {}
+    MovieManagerImpl();
+    virtual ~MovieManagerImpl();
 
    private:
     static MovieManagerImpl* instance;
-    DBManagerShrdPtr_t m_dbMgr;
     MovieBrowserUniqPtr m_movieBrowser;
+    MovieSourceShrdPtr_t m_source;
 };
 
 }  // namespace moviedb

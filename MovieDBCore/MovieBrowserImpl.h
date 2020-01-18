@@ -6,6 +6,7 @@
  */
 
 #include "movieTypes.h"
+#include "MovieDataBase/DBManager.h"
 
 #ifndef MOVIEBROWSERIMPL_H_
 #define MOVIEBROWSERIMPL_H_
@@ -16,7 +17,14 @@ class MovieBrowserImpl {
    public:
     MovieBrowserImpl();
     virtual ~MovieBrowserImpl();
+    error_e Initialize();
     error_e createMovieList();
+    movie_list requestMovieList();
+
+   private:
+    DBManagerShrdPtr_t m_dbMgr;
+    movie_list m_movieList;
+    movie_list m_searchResultList;
 };
 
 using MovieBrowserUniqPtr = std::unique_ptr<MovieBrowserImpl>;

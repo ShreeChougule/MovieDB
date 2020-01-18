@@ -12,11 +12,17 @@
 
 namespace moviedb {
 
-class SampleSource : IMovieSource {
+class SampleSource : public IMovieSource {
    public:
     SampleSource();
     virtual ~SampleSource();
     void Initialize() override;
+
+   private:
+    void FillDataBase();
+
+   private:
+    DBManagerShrdPtr_t m_dbMgr;
 };
 
 } /* namespace moviedb */

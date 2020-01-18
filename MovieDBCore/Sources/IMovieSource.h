@@ -6,6 +6,7 @@
  */
 
 #include <memory>
+#include "../MovieDataBase/DBManager.h"
 
 #ifndef SOURCES_IMOVIESOURCE_H_
 #define SOURCES_IMOVIESOURCE_H_

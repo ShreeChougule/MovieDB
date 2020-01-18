@@ -7,9 +7,14 @@
 
 #include "MovieManagerImpl.h"
 #include <iostream>
+
 namespace moviedb {
 
 MovieManagerImpl* MovieManagerImpl::instance = nullptr;
+
+MovieManagerImpl::MovieManagerImpl() { m_movieBrowser = std::make_unique<MovieBrowserImpl>(); }
+
+MovieManagerImpl::~MovieManagerImpl() {}
 
 MovieManagerImpl* MovieManagerImpl::getInstance() {
     if (!instance) instance = new MovieManagerImpl;
@@ -22,32 +27,24 @@ error_e MovieManagerImpl::releaseInstance() {
     return NO_ERROR;
 }
 
-error_e MovieManagerImpl::Initialize() { return NO_ERROR; }
+error_e MovieManagerImpl::Initialize() {
+    m_source = SourceProvider::getSource();
+    m_source->Initialize();
+    m_movieBrowser->Initialize();
 
-movie_list MovieManagerImpl::searchtMovieList() {
-    movie_list list;
-
-    return list;
+    return NO_ERROR;
 }
 
-movie_list MovieManagerImpl::gettMovieList() {
-    movie_list list;
+error_e MovieManagerImpl::OnSearchtMovieList() {}
 
-    return list;
+error_e MovieManagerImpl::OnRequestMovieList(movie_list& listObj) {
+    listObj = m_movieBrowser->requestMovieList();
+    return NO_ERROR;
 }
 
-error_e MovieManagerImpl::updateMovieList(list_operations_e, u_int) { return NO_ERROR; }
+error_e MovieManagerImpl::OnUpdateMovieList(list_operations_e, u_int) { return NO_ERROR; }
 
-error_e MovieManagerImpl::updateMovieList(list_operations_e op, Movie&& movie) {
-    /*
-        std::cout << "\n##### Title : " << movie.m_title;
-        std::cout << "\n##### Hero : " << movie.m_hero;
-        std::cout << "\n##### Heroine : " << movie.m_heroine;
-        std::cout << "\n##### Director : " << movie.m_director;
-        std::cout << "\n##### Casting : " << movie.m_casting;
-        std::cout << "\n##### Genre : " << movie.m_genre;
-        std::cout << "\n##### Language : " << movie.m_language;
-    */
+error_e MovieManagerImpl::OnUpdateMovieList(list_operations_e op, Movie* moviePtr) {
     return NO_ERROR;
 }
 

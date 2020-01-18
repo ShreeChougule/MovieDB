@@ -6,6 +6,7 @@
  */
 
 #include <memory>
+#include "MovieDatabaseImpl.h"
 
 #ifndef MOVIEDATABASE_DBMANAGER_H_
 #define MOVIEDATABASE_DBMANAGER_H_
@@ -14,14 +15,19 @@ namespace moviedb {
 
 class DBManager {
    public:
-    static std::shared_ptr<DBManager> getInstance();
-
-   private:
     DBManager();
     virtual ~DBManager();
 
+    error_e insertMovieData(Movie*);
+    error_e deleteMovieData(u_int);
+    error_e getAllMovieData(movie_list&);
+
+   public:
+    static std::shared_ptr<DBManager> getInstance();
+
    private:
     static std::shared_ptr<DBManager> instance;
+    IMovieDataBase* impl;
 };
 
 using DBManagerShrdPtr_t = std::shared_ptr<DBManager>;

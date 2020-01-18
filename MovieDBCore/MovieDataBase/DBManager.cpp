@@ -13,19 +13,25 @@ namespace moviedb {
 
 std::shared_ptr<DBManager> DBManager::instance = nullptr;
 
-DBManager::DBManager() {
-    // TODO Auto-generated constructor stub
-}
+DBManager::DBManager() { impl = new MovieDatabaseImpl(); }
 
 DBManager::~DBManager() {
-    // TODO Auto-generated destructor stub
+    if (impl) {
+        delete impl;
+        impl = nullptr;
+    }
 }
 
 DBManagerShrdPtr_t DBManager::getInstance() {
-    if (!instance)
-        std::cout << "\n instance is null !!!!";
-    else
-        std::cout << "\n instance is :  !!!!" << instance;
+    if (!instance) instance = std::make_shared<DBManager>();
+
+    return DBManager::instance;
 }
+
+error_e DBManager::insertMovieData(Movie* moviePtr) { return impl->insertMovieData(moviePtr); }
+
+error_e DBManager::deleteMovieData(u_int id) { return impl->deleteMovieData(id); }
+
+error_e DBManager::getAllMovieData(movie_list& list_r) { return impl->getAllMovieData(list_r); }
 
 } /* namespace moviedb */

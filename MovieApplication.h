@@ -18,10 +18,11 @@ class MovieApplication {
     virtual ~MovieApplication();
     error_e showMovies();
     error_e searchMovie();
-    error_e updateMovieList(list_operations_e);
+    error_e updateMovieList(const list_operations_e&);
 
    private:
-    Movie getMovieData();
+    Movie* getMovieData();
+    void showList(const movie_list&);
 
    private:
     MovieManagerImpl* m_movieMgr;

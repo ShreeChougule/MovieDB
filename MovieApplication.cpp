@@ -10,33 +10,38 @@
 
 namespace moviedb {
 
-MovieApplication::MovieApplication() { m_movieMgr = MovieManagerImpl::getInstance(); }
+MovieApplication::MovieApplication() {
+    m_movieMgr = MovieManagerImpl::getInstance();
+    m_movieMgr->Initialize();
+}
 
 MovieApplication::~MovieApplication() { MovieManagerImpl::releaseInstance(); }
 
 error_e MovieApplication::showMovies() {
-    m_movieMgr->gettMovieList();
+    movie_list list;
+    m_movieMgr->OnRequestMovieList(list);
+    showList(list);
     return NO_ERROR;
 }
 
 error_e MovieApplication::searchMovie() {
-    m_movieMgr->searchtMovieList();
+    m_movieMgr->OnSearchtMovieList();
     return NO_ERROR;
 }
 
-error_e MovieApplication::updateMovieList(list_operations_e op) {
+error_e MovieApplication::updateMovieList(const list_operations_e& op) {
     if (op == REMOVE_MOVIE) {
         u_int id;
         std::cout << "\n\t Enter Movie No. : ";
         std::cin >> id;
-        m_movieMgr->updateMovieList(op, id);
+        m_movieMgr->OnUpdateMovieList(op, id);
     } else if (op == ADD_MOVIE) {
-        m_movieMgr->updateMovieList(op, std::move(getMovieData()));
+        m_movieMgr->OnUpdateMovieList(op, getMovieData());
     }
     return NO_ERROR;
 }
 
-Movie MovieApplication::getMovieData() {
+Movie* MovieApplication::getMovieData() {
     u_int genre;
     u_int lang;
     u_int year;
@@ -69,7 +74,10 @@ Movie MovieApplication::getMovieData() {
     std::cout << "\n\t Enter Casting Names : ";
     std::getline(std::cin, casting);
 
-    return Movie((genre_e)genre, (lanuguage_e)lang, year, title, hero, heroine, director, casting);
+    return new Movie((genre_e)genre, (lanuguage_e)lang, year, title, hero, heroine, director,
+                     casting);
 }
+
+void MovieApplication::showList(const movie_list& list) {}
 
 }  // namespace moviedb
