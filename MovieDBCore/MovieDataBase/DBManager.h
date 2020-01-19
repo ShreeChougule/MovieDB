@@ -19,8 +19,8 @@ class DBManager {
     virtual ~DBManager();
 
     error_e insertMovieData(Movie*);
-    error_e deleteMovieData(u_int);
-    error_e getAllMovieData(movie_list&);
+    error_e deleteMovieData(dbId);
+    error_e getAllMovieData(filter_type_e, filter_t, movie_list&);
 
    public:
     static std::shared_ptr<DBManager> getInstance();

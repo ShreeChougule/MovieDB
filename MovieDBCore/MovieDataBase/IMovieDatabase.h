@@ -16,7 +16,7 @@ class IMovieDataBase {
     virtual ~IMovieDataBase() {}
     virtual error_e insertMovieData(Movie*) = 0;
     virtual error_e deleteMovieData(u_int) = 0;
-    virtual error_e getAllMovieData(movie_list&) = 0;
+    virtual error_e getAllMovieData(filter_type_e, filter_t, movie_list&) = 0;
 };
 
 }  // namespace moviedb

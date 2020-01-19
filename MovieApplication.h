@@ -23,6 +23,9 @@ class MovieApplication {
    private:
     Movie* getMovieData();
     void showList(const movie_list&);
+    void showListDetails(const movie_list&);
+
+    std::string getGenreStr(const genre_e&);
 
    private:
     MovieManagerImpl* m_movieMgr;

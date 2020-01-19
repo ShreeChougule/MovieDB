@@ -35,17 +35,18 @@ error_e MovieManagerImpl::Initialize() {
     return NO_ERROR;
 }
 
-error_e MovieManagerImpl::OnSearchtMovieList() {}
-
-error_e MovieManagerImpl::OnRequestMovieList(movie_list& listObj) {
-    listObj = m_movieBrowser->requestMovieList();
+error_e MovieManagerImpl::OnRequestMovieList(filter_type_e filterType, filter_t filter,
+                                             movie_list& listObj) {
+    listObj = m_movieBrowser->requestMovieList(filterType, filter);
     return NO_ERROR;
 }
 
-error_e MovieManagerImpl::OnUpdateMovieList(list_operations_e, u_int) { return NO_ERROR; }
+error_e MovieManagerImpl::OnUpdateMovieList(list_operations_e op, u_int id) {
+    return m_movieBrowser->requestRemoveMovie(id);
+}
 
 error_e MovieManagerImpl::OnUpdateMovieList(list_operations_e op, Movie* moviePtr) {
-    return NO_ERROR;
+    return m_movieBrowser->requestAddMovie(moviePtr);
 }
 
 }  // namespace moviedb

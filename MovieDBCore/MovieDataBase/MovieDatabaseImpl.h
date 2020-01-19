@@ -12,6 +12,7 @@
 #define MOVIEDATABASE_MOVIEDATABASEIMPL_H_
 
 namespace moviedb {
+using dbId = unsigned int;
 
 class MovieDatabaseImpl : public IMovieDataBase {
    public:
@@ -19,12 +20,13 @@ class MovieDatabaseImpl : public IMovieDataBase {
     virtual ~MovieDatabaseImpl();
 
     error_e insertMovieData(Movie *) override;
-    error_e deleteMovieData(u_int) override;
-    error_e getAllMovieData(movie_list &) override;
+    error_e deleteMovieData(dbId) override;
+    error_e getAllMovieData(filter_type_e, filter_t, movie_list &) override;
 
    private:
-    std::unordered_map<u_int, Movie *> dbMap;
-    static u_int m_movieId;
+    std::unordered_map<dbId, Movie *> m_dbMap;
+
+    static dbId m_movieId;
 };
 
 }  // namespace moviedb

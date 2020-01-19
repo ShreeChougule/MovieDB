@@ -17,8 +17,7 @@ class MovieManagerImpl {
     static MovieManagerImpl* getInstance();
     static error_e releaseInstance();
     error_e Initialize();
-    error_e OnRequestMovieList(movie_list&);
-    error_e OnSearchtMovieList();
+    error_e OnRequestMovieList(filter_type_e, filter_t, movie_list&);
 
     // use template or auto
     error_e OnUpdateMovieList(list_operations_e, u_int);

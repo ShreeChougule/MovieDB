@@ -20,6 +20,19 @@ typedef enum language { HINDI = 0, ENGLIS, MARATHI, TAMIL } lanuguage_e;
 
 typedef enum list_operations { ADD_MOVIE = 0, UPDATE_MOVIE, REMOVE_MOVIE } list_operations_e;
 
+typedef enum filter_type {
+    TITLE = 0,
+    HERO,
+    HEROINE,
+    DIRECTOR,
+    GENRE,
+    CASTING,
+    YEAR,
+    ALL
+} filter_type_e;
+
+using filter_t = std::string;
+
 typedef enum error { NO_ERROR, GENERIC_ERROR, DATA_NOT_FOUND, NOT_IMPL } error_e;
 
 typedef enum genre {
@@ -42,10 +55,11 @@ typedef enum genre {
 
 class Movie {
    public:
-    Movie(const genre_e& genre, const lanuguage_e& lang, const u_int& year,
+    Movie(const u_int& Id, const genre_e& genre, const lanuguage_e& lang, const u_int& year,
           const std::string& title, const std::string& hero, const std::string& heroine,
           const std::string& director, const std::string& casting)
-        : m_genre(genre),
+        : m_Id(Id),
+          m_genre(genre),
           m_language(lang),
           m_year(year),
           m_title(title),
@@ -54,10 +68,11 @@ class Movie {
           m_director(director),
           m_casting(casting) {}
 
-    virtual ~Movie() {}
+    virtual ~Movie() { std::cout << "\n~Movie() Called !!!!\n"; }
 
     Movie(const Movie& Source)
-        : m_genre(Source.m_genre),
+        : m_Id(Source.m_Id),
+          m_genre(Source.m_genre),
           m_language(Source.m_language),
           m_year(Source.m_year),
           m_title(Source.m_title),
@@ -67,7 +82,8 @@ class Movie {
           m_casting(Source.m_casting) {}
 
     Movie(Movie&& Source)
-        : m_genre(std::move(Source.m_genre)),
+        : m_Id(std::move(Source.m_Id)),
+          m_genre(std::move(Source.m_genre)),
           m_language(std::move(Source.m_language)),
           m_year(std::move(Source.m_year)),
           m_title(std::move(Source.m_title)),
@@ -77,6 +93,7 @@ class Movie {
           m_casting(std::move(Source.m_casting)) {}
 
     Movie& operator=(const Movie& Source) {
+        m_Id = Source.m_Id;
         m_genre = Source.m_genre;
         m_language = Source.m_language;
         m_year = Source.m_year;
@@ -89,6 +106,7 @@ class Movie {
     }
 
     Movie& operator=(Movie&& Source) {
+        m_Id = std::move(Source.m_Id);
         m_genre = std::move(Source.m_genre);
         m_language = std::move(Source.m_language);
         m_year = std::move(Source.m_year);
@@ -101,16 +119,17 @@ class Movie {
     }
 
     void show() {
-        std::cout << "\n##### Title : " << m_title;
-        std::cout << "\n##### Hero : " << m_hero;
-        std::cout << "\n##### Heroine : " << m_heroine;
-        std::cout << "\n##### Director : " << m_director;
-        std::cout << "\n##### Casting : " << m_casting;
-        std::cout << "\n##### Genre : " << m_genre;
-        std::cout << "\n##### Language : " << m_language;
+        std::cout << "\n\n##### Title : " << m_title;
+        //        std::cout << "\n##### Hero : " << m_hero;
+        //        std::cout << "\n##### Heroine : " << m_heroine;
+        //        std::cout << "\n##### Director : " << m_director;
+        //        std::cout << "\n##### Casting : " << m_casting;
+        //        std::cout << "\n##### Genre : " << m_genre;
+        //        std::cout << "\n##### Language : " << m_language;
     }
 
    public:
+    u_int m_Id;
     genre_e m_genre;
     lanuguage_e m_language;
     u_int m_year;

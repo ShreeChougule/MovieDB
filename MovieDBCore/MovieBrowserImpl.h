@@ -18,13 +18,16 @@ class MovieBrowserImpl {
     MovieBrowserImpl();
     virtual ~MovieBrowserImpl();
     error_e Initialize();
-    error_e createMovieList();
-    movie_list requestMovieList();
+    movie_list requestMovieList(filter_type_e, filter_t);
+    error_e requestAddMovie(Movie*);
+    error_e requestRemoveMovie(u_int);
+
+   private:
+    error_e createMovieList(filter_type_e, filter_t);
 
    private:
     DBManagerShrdPtr_t m_dbMgr;
     movie_list m_movieList;
-    movie_list m_searchResultList;
 };
 
 using MovieBrowserUniqPtr = std::unique_ptr<MovieBrowserImpl>;
