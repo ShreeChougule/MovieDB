@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC  -std=c++1y -fstack-protector-all -pthread -std=c++1y -fstack-protector-all -pthread -std=c++14 -fstack-protector-all -pthread  -shared -Wl,-soname,libmovieDbSources.so -o libmovieDbSources.so CMakeFiles/movieDbSources.dir/SampleSource.cpp.o CMakeFiles/movieDbSources.dir/SourceProvider.cpp.o 
