@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -std=c++1y -fstack-protector-all -pthread -std=c++1y -fstack-protector-all -pthread -std=c++1y -fstack-protector-all -pthread  -shared -Wl,-soname,libmovieDbHandler.so -o libmovieDbHandler.so CMakeFiles/movieDbHandler.dir/DBManager.cpp.o CMakeFiles/movieDbHandler.dir/MovieDatabaseImpl.cpp.o 
