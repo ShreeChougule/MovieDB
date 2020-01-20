@@ -13,10 +13,29 @@ namespace moviedb {
 
 class IMovieDataBase {
    public:
+    /**
+     * @brief destructor
+     */
     virtual ~IMovieDataBase() {}
+    /**
+     * @brief interface function to add data in database
+     * @param address of movie object
+     * @return status
+     */
     virtual error_e insertMovieData(Movie*) = 0;
+    /**
+     * @brief interface function to remove
+     * @param id of movie
+     * @return status
+     */
     virtual error_e deleteMovieData(u_int) = 0;
-    //    virtual error_e getAllMovieData(filter_type_e, filter_t) = 0;
+    /**
+     * @brief interface function to fetch required data
+     * @param filter type
+     * @param filter value
+     * @param reference of movie list object
+     * @return status
+     */
     virtual error_e getAllMovieData(filter_type_e, filter_t, movie_list&) = 0;
 };
 
