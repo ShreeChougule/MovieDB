@@ -28,7 +28,7 @@ class MovieManagerImpl {
      * @brief initializes the class
      * @return status
      */
-    error_e Initialize();
+    auto Initialize() -> error_e;
     /**
      *
      * @param filter type
@@ -36,21 +36,21 @@ class MovieManagerImpl {
      * @param reference of movie list object
      * @return status
      */
-    error_e OnRequestMovieList(filter_type_e, filter_t, movie_list&);
+    auto OnRequestMovieList(filter_type_e, filter_t, movie_list&) -> error_e;
     /**
      * @brief update movie in list requirement procedure
      * @param operation
      * @param movie id
      * @return status
      */
-    error_e OnUpdateMovieList(list_operations_e, u_int);
+    auto OnUpdateMovieList(list_operations_e, u_int) -> error_e;
     /**
      * @brief update movie in list requirement procedure
      * @param operation
      * @param address of newly created movie object
      * @return status
      */
-    error_e OnUpdateMovieList(list_operations_e, Movie*);
+    auto OnUpdateMovieList(list_operations_e, Movie*) -> error_e;
 
    private:
     /**

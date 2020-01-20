@@ -51,13 +51,13 @@ class DBManager {
      * @param address of movie object
      * @return status
      */
-    error_e insertMovieData(Movie*);
+    auto insertMovieData(Movie*) -> error_e;
     /**
      * @brief forward movie id to remove movie to implementation class
      * @param id of movie
      * @return status
      */
-    error_e deleteMovieData(dbId);
+    auto deleteMovieData(dbId) -> error_e;
     /**
      * @brief forward all info to implementation class to retrieve list
      * @param filter type
@@ -65,7 +65,7 @@ class DBManager {
      * @param reference of list object
      * @return status
      */
-    error_e getAllMovieData(filter_type_e, filter_t, movie_list&);
+    auto getAllMovieData(filter_type_e, filter_t, movie_list&) -> error_e;
 
    public:
     /**

@@ -24,13 +24,13 @@ MovieManagerImpl* MovieManagerImpl::getInstance() {
     return instance;
 }
 
-error_e MovieManagerImpl::releaseInstance() {
+auto MovieManagerImpl::releaseInstance() -> error_e {
     if (instance) delete instance;
     instance = nullptr;
     return Error::NO_ERROR;
 }
 
-error_e MovieManagerImpl::Initialize() {
+auto MovieManagerImpl::Initialize() -> error_e {
     m_source = SourceProvider::getSource();
     m_source->Initialize();
     m_movieBrowser->Initialize();
@@ -38,17 +38,17 @@ error_e MovieManagerImpl::Initialize() {
     return Error::NO_ERROR;
 }
 
-error_e MovieManagerImpl::OnRequestMovieList(filter_type_e filterType, filter_t filter,
-                                             movie_list& listObj) {
+auto MovieManagerImpl::OnRequestMovieList(filter_type_e filterType, filter_t filter,
+                                          movie_list& listObj) -> error_e {
     listObj = m_movieBrowser->requestMovieList(filterType, filter);
     return Error::NO_ERROR;
 }
 
-error_e MovieManagerImpl::OnUpdateMovieList(list_operations_e op, u_int id) {
+auto MovieManagerImpl::OnUpdateMovieList(list_operations_e op, u_int id) -> error_e {
     return m_movieBrowser->requestRemoveMovie(id);
 }
 
-error_e MovieManagerImpl::OnUpdateMovieList(list_operations_e op, Movie* moviePtr) {
+auto MovieManagerImpl::OnUpdateMovieList(list_operations_e op, Movie* moviePtr) -> error_e {
     return m_movieBrowser->requestAddMovie(moviePtr);
 }
 

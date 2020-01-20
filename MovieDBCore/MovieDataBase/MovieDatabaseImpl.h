@@ -52,13 +52,13 @@ class MovieDatabaseImpl : public IMovieDataBase {
      * @param address of movie object
      * @return status
      */
-    error_e insertMovieData(Movie *) override;
+    auto insertMovieData(Movie *) -> error_e override;
     /**
      * @brief delete specific data from the database
      * @param id of movie
      * @return status
      */
-    error_e deleteMovieData(dbId) override;
+    auto deleteMovieData(dbId) -> error_e override;
     /**
      * @brief reads the data from database and fill the list with required data
      * @param filter type
@@ -66,7 +66,7 @@ class MovieDatabaseImpl : public IMovieDataBase {
      * @param reference of movie list object
      * @return status
      */
-    error_e getAllMovieData(filter_type_e, filter_t, movie_list &) override;
+    auto getAllMovieData(filter_type_e, filter_t, movie_list &) -> error_e override;
 
    private:
     /**

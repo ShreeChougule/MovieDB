@@ -36,11 +36,13 @@ DBManagerShrdPtr_t DBManager::getInstance() {
     return DBManager::instance;
 }
 
-error_e DBManager::insertMovieData(Movie* moviePtr) { return impl->insertMovieData(moviePtr); }
+auto DBManager::insertMovieData(Movie* moviePtr) -> error_e {
+    return impl->insertMovieData(moviePtr);
+}
 
-error_e DBManager::deleteMovieData(dbId id) { return impl->deleteMovieData(id); }
+auto DBManager::deleteMovieData(dbId id) -> error_e { return impl->deleteMovieData(id); }
 
-error_e DBManager::getAllMovieData(filter_type_e type, filter_t filter, movie_list& list) {
+auto DBManager::getAllMovieData(filter_type_e type, filter_t filter, movie_list& list) -> error_e {
     return impl->getAllMovieData(type, filter, list);
 }
 

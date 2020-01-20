@@ -33,7 +33,7 @@ MovieBrowserImpl& MovieBrowserImpl::operator=(MovieBrowserImpl&& Source) noexcep
 
 MovieBrowserImpl::~MovieBrowserImpl() noexcept {}
 
-error_e MovieBrowserImpl::Initialize() {
+auto MovieBrowserImpl::Initialize() -> error_e {
     m_dbMgr = DBManager::getInstance();
     return Error::NO_ERROR;
 }
@@ -58,8 +58,12 @@ movie_list MovieBrowserImpl::requestMovieList(filter_type_e filter_type, filter_
     return m_movieList;
 }
 
-error_e MovieBrowserImpl::requestAddMovie(Movie* ptr) { return m_dbMgr->insertMovieData(ptr); }
+auto MovieBrowserImpl::requestAddMovie(Movie* ptr) -> error_e {
+    return m_dbMgr->insertMovieData(ptr);
+}
 
-error_e MovieBrowserImpl::requestRemoveMovie(u_int id) { return m_dbMgr->deleteMovieData(id); }
+auto MovieBrowserImpl::requestRemoveMovie(u_int id) -> error_e {
+    return m_dbMgr->deleteMovieData(id);
+}
 
 }  // namespace moviedb

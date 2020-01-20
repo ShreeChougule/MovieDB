@@ -49,18 +49,18 @@ class MovieApplication {
      * @brief shows all available movies
      * @return status
      */
-    error_e showMovies();
+    auto showMovies() -> error_e;
     /**
      * @brief shows list of required movies
      * @return status
      */
-    error_e searchMovie();
+    auto searchMovie() -> error_e;
     /**
      * @brief updates movie list according to user
      * @param list operation
      * @return status
      */
-    error_e updateMovieList(const list_operations_e&);
+    auto updateMovieList(const list_operations_e&) -> error_e;
 
    private:
     Movie* getMovieData();

@@ -33,14 +33,14 @@ MovieDatabaseImpl& MovieDatabaseImpl::operator=(MovieDatabaseImpl&& Source) noex
 
 MovieDatabaseImpl::~MovieDatabaseImpl() noexcept {}
 
-error_e MovieDatabaseImpl::insertMovieData(Movie* objPtr) {
+auto MovieDatabaseImpl::insertMovieData(Movie* objPtr) -> error_e {
     m_dbMap.emplace(std::make_pair(++m_movieId, objPtr));
     objPtr->m_Id = m_movieId;
     return Error::NO_ERROR;
 }
 
-error_e MovieDatabaseImpl::deleteMovieData(dbId key) {
-    error_e ret = Error::NO_ERROR;
+auto MovieDatabaseImpl::deleteMovieData(dbId key) -> error_e {
+    auto ret = Error::NO_ERROR;
 
     auto search = m_dbMap.find(key);
     if (search != m_dbMap.end())
@@ -51,8 +51,9 @@ error_e MovieDatabaseImpl::deleteMovieData(dbId key) {
     return ret;
 }
 
-error_e MovieDatabaseImpl::getAllMovieData(filter_type_e searchType, filter_t filter,
-                                           movie_list& list) {
+auto MovieDatabaseImpl::getAllMovieData(filter_type_e searchType, filter_t filter, movie_list& list)
+    -> error_e {
+    auto status = Error::NO_ERROR;
     if (m_dbMap.empty()) return Error::DATA_NOT_FOUND;
 
     auto findCaseInsensitiveData = [](auto data, auto toSearch) {
@@ -115,7 +116,7 @@ error_e MovieDatabaseImpl::getAllMovieData(filter_type_e searchType, filter_t fi
             }
         } break;
     }
-    return Error::NO_ERROR;
+    return status;
 }
 
 }  // namespace moviedb

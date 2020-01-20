@@ -50,7 +50,7 @@ class MovieBrowserImpl {
      * @brief initializes class
      * @return status
      */
-    error_e Initialize();
+    auto Initialize() -> error_e;
     /**
      * @brief request movie list from database manager
      * @param filter type by which list will be categorized
@@ -63,13 +63,13 @@ class MovieBrowserImpl {
      * @param address of Movie Object
      * @return status
      */
-    error_e requestAddMovie(Movie*);
+    auto requestAddMovie(Movie*) -> error_e;
     /**
      *  @brief request database manager to remove movie
      * @param id of movie
      * @return status
      */
-    error_e requestRemoveMovie(u_int);
+    auto requestRemoveMovie(u_int) -> error_e;
 
    private:
     /**
