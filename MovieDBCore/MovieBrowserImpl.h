@@ -28,12 +28,16 @@ class MovieBrowserImpl {
     error_e requestRemoveMovie(u_int);
 
    private:
-    error_e createMovieList(filter_type_e, filter_t);
+    static movie_list createMovieList(filter_type_e, filter_t, MovieBrowserImpl*);
 
    private:
     DBManagerShrdPtr_t m_dbMgr;
     movie_list m_movieList;
 };
+using movieListFetchTask_t =
+    std::packaged_task<movie_list(filter_type_e, filter_t, MovieBrowserImpl*)>;
+
+using movieListFuture_t = std::future<movie_list>;
 
 using MovieBrowserUniqPtr = std::unique_ptr<MovieBrowserImpl>;
 

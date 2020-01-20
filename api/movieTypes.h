@@ -9,18 +9,21 @@
 #include <utility>
 #include <list>
 #include <memory>
+#include <thread>
+#include <future>
 #include <iostream>
+
 #ifndef MOVIE_H_
 #define MOVIE_H_
 
 namespace moviedb {
 
 using u_int = unsigned int;
-typedef enum language { HINDI = 0, ENGLIS, MARATHI, TAMIL } lanuguage_e;
+typedef enum class Language { HINDI = 0, ENGLIS, MARATHI, TAMIL } lanuguage_e;
 
-typedef enum list_operations { ADD_MOVIE = 0, UPDATE_MOVIE, REMOVE_MOVIE } list_operations_e;
+typedef enum class Operations { ADD_MOVIE = 0, UPDATE_MOVIE, REMOVE_MOVIE } list_operations_e;
 
-typedef enum filter_type {
+typedef enum class FilterType {
     TITLE = 0,
     HERO,
     HEROINE,
@@ -33,9 +36,9 @@ typedef enum filter_type {
 
 using filter_t = std::string;
 
-typedef enum error { NO_ERROR, GENERIC_ERROR, DATA_NOT_FOUND, NOT_IMPL } error_e;
+typedef enum class Error { NO_ERROR, GENERIC_ERROR, DATA_NOT_FOUND, NOT_IMPL } error_e;
 
-typedef enum genre {
+typedef enum Genre {
     HORROR = 0,
     COMEDY,
     SCI_FI,
@@ -116,16 +119,6 @@ class Movie {
         m_director = std::move(Source.m_director);
         m_casting = std::move(Source.m_casting);
         return *this;
-    }
-
-    void show() {
-        std::cout << "\n\n##### Title : " << m_title;
-        //        std::cout << "\n##### Hero : " << m_hero;
-        //        std::cout << "\n##### Heroine : " << m_heroine;
-        //        std::cout << "\n##### Director : " << m_director;
-        //        std::cout << "\n##### Casting : " << m_casting;
-        //        std::cout << "\n##### Genre : " << m_genre;
-        //        std::cout << "\n##### Language : " << m_language;
     }
 
    public:

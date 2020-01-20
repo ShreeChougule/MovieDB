@@ -35,18 +35,26 @@ MovieBrowserImpl::~MovieBrowserImpl() noexcept {}
 
 error_e MovieBrowserImpl::Initialize() {
     m_dbMgr = DBManager::getInstance();
-    return NO_ERROR;
+    return Error::NO_ERROR;
 }
 
-error_e MovieBrowserImpl::createMovieList(filter_type_e filter_type, filter_t filter) {
-    m_movieList.clear();
-    error_e ret = m_dbMgr->getAllMovieData(filter_type, filter, m_movieList);
-    if (ret == DATA_NOT_FOUND) std::cout << "\nWARNING : No Movies Available right now !\n";
-    return ret;
+movie_list MovieBrowserImpl::createMovieList(filter_type_e filter_type, filter_t filter,
+                                             MovieBrowserImpl* instance) {
+    movie_list list;
+    error_e status = instance->m_dbMgr->getAllMovieData(filter_type, filter, list);
+    return list;
 }
 
 movie_list MovieBrowserImpl::requestMovieList(filter_type_e filter_type, filter_t filter) {
-    createMovieList(filter_type, filter);
+    m_movieList.clear();
+
+    movieListFetchTask_t task(MovieBrowserImpl::createMovieList);
+    movieListFuture_t m_movieListPromise = task.get_future();
+
+    std::thread thread(std::move(task), filter_type, filter, this);
+    thread.detach();
+
+    m_movieList = m_movieListPromise.get();
     return m_movieList;
 }
 

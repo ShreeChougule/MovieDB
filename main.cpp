@@ -26,8 +26,8 @@ int main() {
         switch (choice) {
             case 1: movieApp_obj.showMovies(); break;
             case 2: movieApp_obj.searchMovie(); break;
-            case 3: movieApp_obj.updateMovieList(ADD_MOVIE); break;
-            case 4: movieApp_obj.updateMovieList(REMOVE_MOVIE); break;
+            case 3: movieApp_obj.updateMovieList(Operations::ADD_MOVIE); break;
+            case 4: movieApp_obj.updateMovieList(Operations::REMOVE_MOVIE); break;
             case 5: break;
             default: std::cout << "\nWARNING : Wrong Input !!!\n"; break;
         }

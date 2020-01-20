@@ -36,85 +36,86 @@ MovieDatabaseImpl::~MovieDatabaseImpl() noexcept {}
 error_e MovieDatabaseImpl::insertMovieData(Movie* objPtr) {
     m_dbMap.emplace(std::make_pair(++m_movieId, objPtr));
     objPtr->m_Id = m_movieId;
-    return NO_ERROR;
+    return Error::NO_ERROR;
 }
 
 error_e MovieDatabaseImpl::deleteMovieData(dbId key) {
-    error_e ret = NO_ERROR;
+    error_e ret = Error::NO_ERROR;
 
     auto search = m_dbMap.find(key);
     if (search != m_dbMap.end())
         m_dbMap.erase(search);
     else
-        ret = DATA_NOT_FOUND;
+        ret = Error::DATA_NOT_FOUND;
 
     return ret;
 }
 
 error_e MovieDatabaseImpl::getAllMovieData(filter_type_e searchType, filter_t filter,
                                            movie_list& list) {
-    if (m_dbMap.empty()) return DATA_NOT_FOUND;
+    if (m_dbMap.empty()) return Error::DATA_NOT_FOUND;
+
+    auto findCaseInsensitiveData = [](auto data, auto toSearch) {
+        auto status = false;
+        std::transform(data.begin(), data.end(), data.begin(), ::tolower);
+        std::transform(toSearch.begin(), toSearch.end(), toSearch.begin(), ::tolower);
+        if (data.find(toSearch) != std::string::npos) status = true;
+        return status;
+    };
 
     switch (searchType) {
-        case ALL: {
-            for (auto it : m_dbMap) { list.push_back(it.second); }
+        case FilterType::ALL: {
+            for (auto it : m_dbMap) { list.emplace_back(it.second); }
         } break;
 
-        case TITLE: {
+        case FilterType::TITLE: {
             for (auto it : m_dbMap) {
                 if (findCaseInsensitiveData((it.second)->m_title, filter))
-                    list.push_back(it.second);
+                    list.emplace_back(it.second);
             }
         } break;
 
-        case HERO: {
+        case FilterType::HERO: {
             for (auto it : m_dbMap) {
-                if (findCaseInsensitiveData((it.second)->m_hero, filter)) list.push_back(it.second);
+                if (findCaseInsensitiveData((it.second)->m_hero, filter))
+                    list.emplace_back(it.second);
             }
         } break;
 
-        case HEROINE: {
+        case FilterType::HEROINE: {
             for (auto it : m_dbMap) {
                 if (findCaseInsensitiveData((it.second)->m_heroine, filter))
-                    list.push_back(it.second);
+                    list.emplace_back(it.second);
             }
         } break;
 
-        case DIRECTOR: {
+        case FilterType::DIRECTOR: {
             for (auto it : m_dbMap) {
                 if (findCaseInsensitiveData((it.second)->m_director, filter))
-                    list.push_back(it.second);
+                    list.emplace_back(it.second);
             }
         } break;
 
-        case GENRE: {
+        case FilterType::GENRE: {
             for (auto it : m_dbMap) {
-                if ((it.second)->m_genre == std::stoi(filter)) list.push_back(it.second);
+                if ((it.second)->m_genre == std::stoi(filter)) list.emplace_back(it.second);
             }
         } break;
 
-        case CASTING: {
+        case FilterType::CASTING: {
             for (auto it : m_dbMap) {
                 if (findCaseInsensitiveData((it.second)->m_casting, filter))
-                    list.push_back(it.second);
+                    list.emplace_back(it.second);
             }
         } break;
 
-        case YEAR: {
+        case FilterType::YEAR: {
             for (auto it : m_dbMap) {
-                if ((it.second)->m_year == std::stoi(filter)) { list.push_back(it.second); }
+                if ((it.second)->m_year == std::stoi(filter)) { list.emplace_back(it.second); }
             }
         } break;
     }
-    return NO_ERROR;
-}
-
-bool MovieDatabaseImpl::findCaseInsensitiveData(std::string data, std::string toSearch) {
-    std::transform(data.begin(), data.end(), data.begin(), ::tolower);
-    std::transform(toSearch.begin(), toSearch.end(), toSearch.begin(), ::tolower);
-    bool status = false;
-    if (data.find(toSearch) != std::string::npos) status = true;
-    return status;
+    return Error::NO_ERROR;
 }
 
 }  // namespace moviedb

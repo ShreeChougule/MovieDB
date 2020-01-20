@@ -35,17 +35,18 @@ void SampleSource::Initialize() {
 
 void SampleSource::FillDataBase() {
 
-    Movie* m = new Movie(0, HORROR, HINDI, 2018, "Stree", "Rajkummar Rao", "Shraddha Kapoor",
-                         "Amar Kaushik",
+    Movie* m = new Movie(0, Genre::HORROR, Language::HINDI, 2018, "Stree", "Rajkummar Rao",
+                         "Shraddha Kapoor", "Amar Kaushik",
                          "Rajkummar Rao, Shraddha Kapoor, Pankaj Tripathi, Aparshakti Khurana");
     m_dbMgr->insertMovieData(m);
 
-    Movie* m1 = new Movie(0, BIOGRAPY, HINDI, 2019, "Gully Boy", "Ranveer Singh", "Alia Bhatt",
-                          "Zoya Akhtar", "Ranveer Singh, Alia Bhatt, Siddhant Chaturvedi");
+    Movie* m1 =
+        new Movie(0, Genre::BIOGRAPY, Language::HINDI, 2019, "Gully Boy", "Ranveer Singh",
+                  "Alia Bhatt", "Zoya Akhtar", "Ranveer Singh, Alia Bhatt, Siddhant Chaturvedi");
     m_dbMgr->insertMovieData(m1);
 
-    Movie* m2 = new Movie(0, BIOGRAPY, HINDI, 2019, "Uri: The Surgical Strike", "Vicky Kaushal",
-                          "Yami Gautam", "Aditya Dhar",
+    Movie* m2 = new Movie(0, Genre::BIOGRAPY, Language::HINDI, 2019, "Uri: The Surgical Strike",
+                          "Vicky Kaushal", "Yami Gautam", "Aditya Dhar",
                           "Vicky Kaushal,Yami Gautam, Paresh Rawal, Mohit Raina, Kirti Kulhari");
     m_dbMgr->insertMovieData(m2);
 }

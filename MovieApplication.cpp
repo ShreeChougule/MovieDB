@@ -34,9 +34,9 @@ MovieApplication::~MovieApplication() noexcept { MovieManagerImpl::releaseInstan
 
 error_e MovieApplication::showMovies() {
     movie_list list;
-    m_movieMgr->OnRequestMovieList(ALL, "", list);
+    m_movieMgr->OnRequestMovieList(FilterType::ALL, "", list);
     showList(list);
-    return NO_ERROR;
+    return Error::NO_ERROR;
 }
 
 error_e MovieApplication::searchMovie() {
@@ -61,19 +61,19 @@ error_e MovieApplication::searchMovie() {
 
     m_movieMgr->OnRequestMovieList((filter_type_e)searchType, filter, list);
     showListDetails(list);
-    return NO_ERROR;
+    return Error::NO_ERROR;
 }
 
 error_e MovieApplication::updateMovieList(const list_operations_e& op) {
-    if (op == REMOVE_MOVIE) {
+    if (op == Operations::REMOVE_MOVIE) {
         u_int id;
         std::cout << "\n\t Enter Movie Id. : ";
         std::cin >> id;
         m_movieMgr->OnUpdateMovieList(op, id);
-    } else if (op == ADD_MOVIE) {
+    } else if (op == Operations::ADD_MOVIE) {
         m_movieMgr->OnUpdateMovieList(op, getMovieData());
     }
-    return NO_ERROR;
+    return Error::NO_ERROR;
 }
 
 Movie* MovieApplication::getMovieData() {

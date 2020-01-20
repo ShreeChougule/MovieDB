@@ -28,9 +28,6 @@ class MovieDatabaseImpl : public IMovieDataBase {
     error_e getAllMovieData(filter_type_e, filter_t, movie_list &) override;
 
    private:
-    bool findCaseInsensitiveData(std::string, std::string);
-
-   private:
     std::unordered_map<dbId, Movie *> m_dbMap;
 
     static dbId m_movieId;

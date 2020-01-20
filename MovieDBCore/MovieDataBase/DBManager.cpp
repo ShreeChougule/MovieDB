@@ -40,8 +40,8 @@ error_e DBManager::insertMovieData(Movie* moviePtr) { return impl->insertMovieDa
 
 error_e DBManager::deleteMovieData(dbId id) { return impl->deleteMovieData(id); }
 
-error_e DBManager::getAllMovieData(filter_type_e type, filter_t filter, movie_list& list_r) {
-    return impl->getAllMovieData(type, filter, list_r);
+error_e DBManager::getAllMovieData(filter_type_e type, filter_t filter, movie_list& list) {
+    return impl->getAllMovieData(type, filter, list);
 }
 
 } /* namespace moviedb */

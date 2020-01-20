@@ -27,7 +27,7 @@ MovieManagerImpl* MovieManagerImpl::getInstance() {
 error_e MovieManagerImpl::releaseInstance() {
     if (instance) delete instance;
     instance = nullptr;
-    return NO_ERROR;
+    return Error::NO_ERROR;
 }
 
 error_e MovieManagerImpl::Initialize() {
@@ -35,13 +35,13 @@ error_e MovieManagerImpl::Initialize() {
     m_source->Initialize();
     m_movieBrowser->Initialize();
 
-    return NO_ERROR;
+    return Error::NO_ERROR;
 }
 
 error_e MovieManagerImpl::OnRequestMovieList(filter_type_e filterType, filter_t filter,
                                              movie_list& listObj) {
     listObj = m_movieBrowser->requestMovieList(filterType, filter);
-    return NO_ERROR;
+    return Error::NO_ERROR;
 }
 
 error_e MovieManagerImpl::OnUpdateMovieList(list_operations_e op, u_int id) {
