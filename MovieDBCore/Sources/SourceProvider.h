@@ -16,6 +16,10 @@ class SourceProvider {
    public:
     SourceProvider() = delete;
     virtual ~SourceProvider() = delete;
+    /**
+     * @brief static function to provide source of movies
+     * @return shared pointer of source
+     */
     static MovieSourceShrdPtr_t getSource();
 };
 

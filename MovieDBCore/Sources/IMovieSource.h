@@ -15,8 +15,13 @@ namespace moviedb {
 
 class IMovieSource {
    public:
-    IMovieSource() {}
+    /**
+     * @brief destructor
+     */
     virtual ~IMovieSource() {}
+    /**
+     * @brief interface function to initialize class
+     */
     virtual void Initialize() = 0;
 };
 

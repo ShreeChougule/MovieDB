@@ -14,15 +14,52 @@ namespace moviedb {
 
 class MovieApplication {
    public:
+    /**
+     * @brief constructor
+     */
     MovieApplication() noexcept;
+    /**
+     * @brief copy constructor
+     * @param reference of MovieApplication class
+     */
     MovieApplication(const MovieApplication&) noexcept;
+    /**
+     * @brief move constructor
+     * @param rvalue reference of MovieApplication class
+     */
     MovieApplication(const MovieApplication&&) noexcept;
+    /**
+     * @brief assignment operator
+     * @param reference of MovieApplication class
+     * @return reference of MovieApplication class
+     */
     MovieApplication& operator=(const MovieApplication&) noexcept;
+    /**
+     * @brief move assignment operator
+     * @param rvalue reference of MovieApplication class
+     * @return reference of MovieApplication class
+     */
     MovieApplication& operator=(const MovieApplication&&) noexcept;
+    /**
+     * destructor
+     */
     virtual ~MovieApplication() noexcept;
 
+    /**
+     * @brief shows all available movies
+     * @return status
+     */
     error_e showMovies();
+    /**
+     * @brief shows list of required movies
+     * @return status
+     */
     error_e searchMovie();
+    /**
+     * @brief updates movie list according to user
+     * @param list operation
+     * @return status
+     */
     error_e updateMovieList(const list_operations_e&);
 
    private:
@@ -32,6 +69,9 @@ class MovieApplication {
     std::string getGenreStr(const genre_e&);
 
    private:
+    /**
+     * ! \brief singletone object pointer of MovieManagerImpl class
+     */
     MovieManagerImpl* m_movieMgr;
 };
 

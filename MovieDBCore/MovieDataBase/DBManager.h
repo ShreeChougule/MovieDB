@@ -15,22 +15,73 @@ namespace moviedb {
 
 class DBManager {
    public:
+    /**
+     * @brief constructor
+     */
     DBManager() noexcept;
+    /**
+     * @brief copy constructor
+     * @param reference of source object
+     */
     DBManager(const DBManager&) noexcept;
+    /**
+     * @brief move constructor
+     * @param rvalue reference of source object
+     */
     DBManager(DBManager&&) noexcept;
+    /**
+     * @brief assignment operator
+     * @param reference of source object
+     * @return reference of newly created object
+     */
     DBManager& operator=(const DBManager&) noexcept;
+    /**
+     * @brief move assignment operator
+     * @param rvalue reference of source object
+     * @return reference of newly created object
+     */
     DBManager& operator=(DBManager&&) noexcept;
+    /**
+     * @brief destructor
+     */
     virtual ~DBManager() noexcept;
 
+    /**
+     * @brief forwards movie data to add to implementation class
+     * @param address of movie object
+     * @return status
+     */
     error_e insertMovieData(Movie*);
+    /**
+     * @brief forward movie id to remove movie to implementation class
+     * @param id of movie
+     * @return status
+     */
     error_e deleteMovieData(dbId);
+    /**
+     * @brief forward all info to implementation class to retrieve list
+     * @param filter type
+     * @param filter data
+     * @param reference of list object
+     * @return status
+     */
     error_e getAllMovieData(filter_type_e, filter_t, movie_list&);
 
    public:
+    /**
+     * @brief public instance of own object
+     * @return shared pointer of own object
+     */
     static std::shared_ptr<DBManager> getInstance();
 
    private:
+    /**
+     * ! \brief shared pointer of own object
+     */
     static std::shared_ptr<DBManager> instance;
+    /**
+     * ! \brief shared pointer of implementation class
+     */
     IMovieDataBaseShrdPtr impl;
 };
 

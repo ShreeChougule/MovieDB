@@ -65,13 +65,26 @@ error_e MovieApplication::searchMovie() {
 }
 
 error_e MovieApplication::updateMovieList(const list_operations_e& op) {
+
+    error_e status = Error::NO_ERROR;
+
     if (op == Operations::REMOVE_MOVIE) {
         u_int id;
         std::cout << "\n\t Enter Movie Id. : ";
         std::cin >> id;
-        m_movieMgr->OnUpdateMovieList(op, id);
+        status = m_movieMgr->OnUpdateMovieList(op, id);
+        if (status == Error::DATA_NOT_FOUND)
+            std::cout << "\n\t\t## WARNING : Movie Id not found !\n";
+
+        else
+            std::cout << "\n\t\t## NOTE : Movie Removed !\n";
+
     } else if (op == Operations::ADD_MOVIE) {
-        m_movieMgr->OnUpdateMovieList(op, getMovieData());
+        status = m_movieMgr->OnUpdateMovieList(op, getMovieData());
+        if (status == Error::NO_ERROR)
+            std::cout << "\n\t\t## NOTE : Movie Added !\n";
+        else
+            std::cout << "\n\t\t## WARNING : Not Able to add !\n";
     }
     return Error::NO_ERROR;
 }
