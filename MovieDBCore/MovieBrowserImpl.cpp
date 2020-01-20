@@ -9,9 +9,29 @@
 
 namespace moviedb {
 
-MovieBrowserImpl::MovieBrowserImpl() {}
+MovieBrowserImpl::MovieBrowserImpl() noexcept {}
 
-MovieBrowserImpl::~MovieBrowserImpl() {}
+MovieBrowserImpl::MovieBrowserImpl(const MovieBrowserImpl& Source) noexcept
+    : m_dbMgr(Source.m_dbMgr), m_movieList(Source.m_movieList) {}
+
+MovieBrowserImpl::MovieBrowserImpl(MovieBrowserImpl&& Source) noexcept
+    : m_dbMgr(std::move(Source.m_dbMgr)) {
+    m_movieList = std::move(Source.m_movieList);
+}
+
+MovieBrowserImpl& MovieBrowserImpl::operator=(const MovieBrowserImpl& Source) noexcept {
+    m_dbMgr = Source.m_dbMgr;
+    m_movieList = Source.m_movieList;
+    return *this;
+}
+
+MovieBrowserImpl& MovieBrowserImpl::operator=(MovieBrowserImpl&& Source) noexcept {
+    m_dbMgr = std::move(Source.m_dbMgr);
+    m_movieList = std::move(Source.m_movieList);
+    return *this;
+}
+
+MovieBrowserImpl::~MovieBrowserImpl() noexcept {}
 
 error_e MovieBrowserImpl::Initialize() {
     m_dbMgr = DBManager::getInstance();

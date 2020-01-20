@@ -14,8 +14,13 @@ namespace moviedb {
 
 class MovieApplication {
    public:
-    MovieApplication();
-    virtual ~MovieApplication();
+    MovieApplication() noexcept;
+    MovieApplication(const MovieApplication&) noexcept;
+    MovieApplication(const MovieApplication&&) noexcept;
+    MovieApplication& operator=(const MovieApplication&) noexcept;
+    MovieApplication& operator=(const MovieApplication&&) noexcept;
+    virtual ~MovieApplication() noexcept;
+
     error_e showMovies();
     error_e searchMovie();
     error_e updateMovieList(const list_operations_e&);
@@ -24,7 +29,6 @@ class MovieApplication {
     Movie* getMovieData();
     void showList(const movie_list&);
     void showListDetails(const movie_list&);
-
     std::string getGenreStr(const genre_e&);
 
    private:

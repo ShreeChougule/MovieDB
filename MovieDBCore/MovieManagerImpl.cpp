@@ -12,17 +12,20 @@ namespace moviedb {
 
 MovieManagerImpl* MovieManagerImpl::instance = nullptr;
 
-MovieManagerImpl::MovieManagerImpl() { m_movieBrowser = std::make_unique<MovieBrowserImpl>(); }
+MovieManagerImpl::MovieManagerImpl() noexcept {
+    m_movieBrowser = std::make_unique<MovieBrowserImpl>();
+}
 
-MovieManagerImpl::~MovieManagerImpl() {}
+MovieManagerImpl::~MovieManagerImpl() noexcept { m_movieBrowser.reset(); }
 
 MovieManagerImpl* MovieManagerImpl::getInstance() {
-    if (!instance) instance = new MovieManagerImpl;
+    if (!instance) { instance = new MovieManagerImpl; }
+
     return instance;
 }
 
 error_e MovieManagerImpl::releaseInstance() {
-    delete instance;
+    if (instance) delete instance;
     instance = nullptr;
     return NO_ERROR;
 }

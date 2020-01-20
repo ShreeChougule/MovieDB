@@ -7,14 +7,31 @@
 
 #include "MovieDatabaseImpl.h"
 #include <iostream>
+#include <algorithm>
 
 namespace moviedb {
 
 dbId MovieDatabaseImpl::m_movieId = 0;
 
-MovieDatabaseImpl::MovieDatabaseImpl() {}
+MovieDatabaseImpl::MovieDatabaseImpl() noexcept {}
 
-MovieDatabaseImpl::~MovieDatabaseImpl() {}
+MovieDatabaseImpl::MovieDatabaseImpl(const MovieDatabaseImpl& Source) noexcept
+    : m_dbMap(Source.m_dbMap) {}
+
+MovieDatabaseImpl::MovieDatabaseImpl(MovieDatabaseImpl&& Source) noexcept
+    : m_dbMap(std::move(Source.m_dbMap)) {}
+
+MovieDatabaseImpl& MovieDatabaseImpl::operator=(const MovieDatabaseImpl& Source) noexcept {
+    m_dbMap = Source.m_dbMap;
+    return *this;
+}
+
+MovieDatabaseImpl& MovieDatabaseImpl::operator=(MovieDatabaseImpl&& Source) noexcept {
+    m_dbMap = std::move(Source.m_dbMap);
+    return *this;
+}
+
+MovieDatabaseImpl::~MovieDatabaseImpl() noexcept {}
 
 error_e MovieDatabaseImpl::insertMovieData(Movie* objPtr) {
     m_dbMap.emplace(std::make_pair(++m_movieId, objPtr));
@@ -23,9 +40,15 @@ error_e MovieDatabaseImpl::insertMovieData(Movie* objPtr) {
 }
 
 error_e MovieDatabaseImpl::deleteMovieData(dbId key) {
-    auto dbItor = m_dbMap.find(key);
-    m_dbMap.erase(dbItor);
-    return NO_ERROR;
+    error_e ret = NO_ERROR;
+
+    auto search = m_dbMap.find(key);
+    if (search != m_dbMap.end())
+        m_dbMap.erase(search);
+    else
+        ret = DATA_NOT_FOUND;
+
+    return ret;
 }
 
 error_e MovieDatabaseImpl::getAllMovieData(filter_type_e searchType, filter_t filter,
@@ -39,47 +62,41 @@ error_e MovieDatabaseImpl::getAllMovieData(filter_type_e searchType, filter_t fi
 
         case TITLE: {
             for (auto it : m_dbMap) {
-                if ((it.second)->m_title.find(filter) != std::string::npos) {
+                if (findCaseInsensitiveData((it.second)->m_title, filter))
                     list.push_back(it.second);
-                }
             }
         } break;
 
         case HERO: {
             for (auto it : m_dbMap) {
-                if ((it.second)->m_hero.find(filter) != std::string::npos) {
-                    list.push_back(it.second);
-                }
+                if (findCaseInsensitiveData((it.second)->m_hero, filter)) list.push_back(it.second);
             }
         } break;
 
         case HEROINE: {
             for (auto it : m_dbMap) {
-                if ((it.second)->m_heroine.find(filter) != std::string::npos) {
+                if (findCaseInsensitiveData((it.second)->m_heroine, filter))
                     list.push_back(it.second);
-                }
             }
         } break;
 
         case DIRECTOR: {
             for (auto it : m_dbMap) {
-                if ((it.second)->m_director.find(filter) != std::string::npos) {
+                if (findCaseInsensitiveData((it.second)->m_director, filter))
                     list.push_back(it.second);
-                }
             }
         } break;
 
         case GENRE: {
             for (auto it : m_dbMap) {
-                if ((it.second)->m_genre == std::stoi(filter)) { list.push_back(it.second); }
+                if ((it.second)->m_genre == std::stoi(filter)) list.push_back(it.second);
             }
         } break;
 
         case CASTING: {
             for (auto it : m_dbMap) {
-                if ((it.second)->m_casting.find(filter) != std::string::npos) {
+                if (findCaseInsensitiveData((it.second)->m_casting, filter))
                     list.push_back(it.second);
-                }
             }
         } break;
 
@@ -90,6 +107,14 @@ error_e MovieDatabaseImpl::getAllMovieData(filter_type_e searchType, filter_t fi
         } break;
     }
     return NO_ERROR;
+}
+
+bool MovieDatabaseImpl::findCaseInsensitiveData(std::string data, std::string toSearch) {
+    std::transform(data.begin(), data.end(), data.begin(), ::tolower);
+    std::transform(toSearch.begin(), toSearch.end(), toSearch.begin(), ::tolower);
+    bool status = false;
+    if (data.find(toSearch) != std::string::npos) status = true;
+    return status;
 }
 
 }  // namespace moviedb

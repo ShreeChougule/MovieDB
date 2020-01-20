@@ -15,8 +15,13 @@ namespace moviedb {
 
 class MovieBrowserImpl {
    public:
-    MovieBrowserImpl();
-    virtual ~MovieBrowserImpl();
+    MovieBrowserImpl() noexcept;
+    MovieBrowserImpl(const MovieBrowserImpl&) noexcept;
+    MovieBrowserImpl(MovieBrowserImpl&&) noexcept;
+    MovieBrowserImpl& operator=(const MovieBrowserImpl&) noexcept;
+    MovieBrowserImpl& operator=(MovieBrowserImpl&&) noexcept;
+    virtual ~MovieBrowserImpl() noexcept;
+
     error_e Initialize();
     movie_list requestMovieList(filter_type_e, filter_t);
     error_e requestAddMovie(Movie*);

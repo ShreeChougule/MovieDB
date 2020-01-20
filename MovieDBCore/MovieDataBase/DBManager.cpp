@@ -13,18 +13,26 @@ namespace moviedb {
 
 std::shared_ptr<DBManager> DBManager::instance = nullptr;
 
-DBManager::DBManager() { impl = new MovieDatabaseImpl(); }
+DBManager::DBManager() noexcept { impl = std::make_shared<MovieDatabaseImpl>(); }
 
-DBManager::~DBManager() {
-    if (impl) {
-        delete impl;
-        impl = nullptr;
-    }
+DBManager::DBManager(const DBManager& Source) noexcept : impl(Source.impl) {}
+
+DBManager::DBManager(DBManager&& Source) noexcept : impl(std::move(Source.impl)) {}
+
+DBManager& DBManager::operator=(const DBManager& Source) noexcept {
+    impl = Source.impl;
+    return *this;
 }
 
-DBManagerShrdPtr_t DBManager::getInstance() {
-    if (!instance) instance = std::make_shared<DBManager>();
+DBManager& DBManager::operator=(DBManager&& Source) noexcept {
+    impl = std::move(Source.impl);
+    return *this;
+}
 
+DBManager::~DBManager() noexcept { impl.reset(); }
+
+DBManagerShrdPtr_t DBManager::getInstance() {
+    if (!DBManager::instance) DBManager::instance = std::make_shared<DBManager>();
     return DBManager::instance;
 }
 

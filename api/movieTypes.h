@@ -57,7 +57,7 @@ class Movie {
    public:
     Movie(const u_int& Id, const genre_e& genre, const lanuguage_e& lang, const u_int& year,
           const std::string& title, const std::string& hero, const std::string& heroine,
-          const std::string& director, const std::string& casting)
+          const std::string& director, const std::string& casting) noexcept
         : m_Id(Id),
           m_genre(genre),
           m_language(lang),
@@ -68,9 +68,9 @@ class Movie {
           m_director(director),
           m_casting(casting) {}
 
-    virtual ~Movie() { std::cout << "\n~Movie() Called !!!!\n"; }
+    virtual ~Movie() noexcept { std::cout << "\n~Movie() Called !!!!\n"; }
 
-    Movie(const Movie& Source)
+    Movie(const Movie& Source) noexcept
         : m_Id(Source.m_Id),
           m_genre(Source.m_genre),
           m_language(Source.m_language),
@@ -81,7 +81,7 @@ class Movie {
           m_director(Source.m_director),
           m_casting(Source.m_casting) {}
 
-    Movie(Movie&& Source)
+    Movie(Movie&& Source) noexcept
         : m_Id(std::move(Source.m_Id)),
           m_genre(std::move(Source.m_genre)),
           m_language(std::move(Source.m_language)),
@@ -92,7 +92,7 @@ class Movie {
           m_director(std::move(Source.m_director)),
           m_casting(std::move(Source.m_casting)) {}
 
-    Movie& operator=(const Movie& Source) {
+    Movie& operator=(const Movie& Source) noexcept {
         m_Id = Source.m_Id;
         m_genre = Source.m_genre;
         m_language = Source.m_language;
@@ -105,7 +105,7 @@ class Movie {
         return *this;
     }
 
-    Movie& operator=(Movie&& Source) {
+    Movie& operator=(Movie&& Source) noexcept {
         m_Id = std::move(Source.m_Id);
         m_genre = std::move(Source.m_genre);
         m_language = std::move(Source.m_language);
@@ -140,7 +140,7 @@ class Movie {
     std::string m_casting;
 };
 
-typedef std::list<Movie*> movie_list;
+using movie_list = std::list<Movie*>;
 
 }  // namespace moviedb
 #endif /* MOVIE_H_ */

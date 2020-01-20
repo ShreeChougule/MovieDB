@@ -10,12 +10,27 @@
 
 namespace moviedb {
 
-MovieApplication::MovieApplication() {
+MovieApplication::MovieApplication() noexcept {
     m_movieMgr = MovieManagerImpl::getInstance();
     m_movieMgr->Initialize();
 }
+MovieApplication::MovieApplication(const MovieApplication& Source) noexcept
+    : m_movieMgr(Source.m_movieMgr) {}
 
-MovieApplication::~MovieApplication() { MovieManagerImpl::releaseInstance(); }
+MovieApplication::MovieApplication(const MovieApplication&& Source) noexcept
+    : m_movieMgr(std::move(Source.m_movieMgr)) {}
+
+MovieApplication& MovieApplication::operator=(const MovieApplication& Source) noexcept {
+    m_movieMgr = Source.m_movieMgr;
+    return *this;
+}
+
+MovieApplication& MovieApplication::operator=(const MovieApplication&& Source) noexcept {
+    m_movieMgr = std::move(Source.m_movieMgr);
+    return *this;
+}
+
+MovieApplication::~MovieApplication() noexcept { MovieManagerImpl::releaseInstance(); }
 
 error_e MovieApplication::showMovies() {
     movie_list list;
@@ -112,7 +127,7 @@ void MovieApplication::showList(const movie_list& list) {
 void MovieApplication::showListDetails(const movie_list& list) {
     std::cout << "\n\t # MOVIE LIST (DETAILS) #";
     for (auto it : list) {
-        std::cout << "\n\n\tTITLE : " << it->m_title << "'  (" << it->m_year << ")"
+        std::cout << "\n\n\tTITLE : '" << it->m_title << "'  (" << it->m_year << ")"
                   << "  [" << getGenreStr(it->m_genre) << "]\n\tHERO : " << it->m_hero
                   << "\n\tHEROINE : " << it->m_heroine << "\n\tDIRECTOR : " << it->m_director
                   << "\n\tCASTING : " << it->m_casting;

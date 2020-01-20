@@ -19,5 +19,7 @@ class IMovieDataBase {
     virtual error_e getAllMovieData(filter_type_e, filter_t, movie_list&) = 0;
 };
 
+using IMovieDataBaseShrdPtr = std::shared_ptr<IMovieDataBase>;
+
 }  // namespace moviedb
 #endif /* MOVIEDATABASE_IMOVIEDATABASE_H_ */

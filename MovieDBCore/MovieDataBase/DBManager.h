@@ -15,8 +15,12 @@ namespace moviedb {
 
 class DBManager {
    public:
-    DBManager();
-    virtual ~DBManager();
+    DBManager() noexcept;
+    DBManager(const DBManager&) noexcept;
+    DBManager(DBManager&&) noexcept;
+    DBManager& operator=(const DBManager&) noexcept;
+    DBManager& operator=(DBManager&&) noexcept;
+    virtual ~DBManager() noexcept;
 
     error_e insertMovieData(Movie*);
     error_e deleteMovieData(dbId);
@@ -27,7 +31,7 @@ class DBManager {
 
    private:
     static std::shared_ptr<DBManager> instance;
-    IMovieDataBase* impl;
+    IMovieDataBaseShrdPtr impl;
 };
 
 using DBManagerShrdPtr_t = std::shared_ptr<DBManager>;

@@ -14,8 +14,13 @@ namespace moviedb {
 
 class SampleSource : public IMovieSource {
    public:
-    SampleSource();
-    virtual ~SampleSource();
+    SampleSource() noexcept;
+    SampleSource(const SampleSource&) noexcept;
+    SampleSource(SampleSource&&) noexcept;
+    SampleSource& operator=(const SampleSource&) noexcept;
+    SampleSource& operator=(SampleSource&&) noexcept;
+    virtual ~SampleSource() noexcept;
+
     void Initialize() override;
 
    private:

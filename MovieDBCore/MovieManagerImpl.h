@@ -24,8 +24,12 @@ class MovieManagerImpl {
     error_e OnUpdateMovieList(list_operations_e, Movie*);
 
    private:
-    MovieManagerImpl();
-    virtual ~MovieManagerImpl();
+    MovieManagerImpl() noexcept;
+    MovieManagerImpl(const MovieManagerImpl&) = delete;
+    MovieManagerImpl(MovieManagerImpl&&) = delete;
+    MovieManagerImpl& operator=(const MovieManagerImpl&) = delete;
+    MovieManagerImpl& operator=(MovieManagerImpl&&) = delete;
+    virtual ~MovieManagerImpl() noexcept;
 
    private:
     static MovieManagerImpl* instance;
