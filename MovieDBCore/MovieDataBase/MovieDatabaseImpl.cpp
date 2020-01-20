@@ -115,6 +115,11 @@ auto MovieDatabaseImpl::getAllMovieData(filter_type_e searchType, filter_t filte
                 if ((it.second)->m_year == std::stoi(filter)) { list.emplace_back(it.second); }
             }
         } break;
+        case FilterType::LANGUAGE: {
+            for (auto it : m_dbMap) {
+                if ((it.second)->m_language == std::stoi(filter)) { list.emplace_back(it.second); }
+            }
+        } break;
     }
     return status;
 }

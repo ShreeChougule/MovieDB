@@ -32,20 +32,20 @@ MovieApplication& MovieApplication::operator=(const MovieApplication&& Source) n
 
 MovieApplication::~MovieApplication() noexcept { MovieManagerImpl::releaseInstance(); }
 
-error_e MovieApplication::showMovies() {
+auto MovieApplication::showMovies() -> error_e {
     movie_list list;
     m_movieMgr->OnRequestMovieList(FilterType::ALL, "", list);
     showList(list);
     return Error::NO_ERROR;
 }
 
-error_e MovieApplication::searchMovie() {
+auto MovieApplication::searchMovie() -> error_e {
     u_int searchType;
     filter_t filter;
     movie_list list;
 
     std::cout << "\n\t# SEARCH BY ? #\n\tTITLE(0), HERO(1), HEROINE(2), DIRECTOR(3), GENRE(4), "
-                 "CASTING(5), YEAR(6)\n\tChoose Option : ";
+                 "CASTING(5), YEAR(6), LANGUAGE(7)\n\tChoose Option : ";
     std::cin >> searchType;
     std::cin.ignore();
 
@@ -54,6 +54,8 @@ error_e MovieApplication::searchMovie() {
             << "\n\tHORROR(0), COMEDY(1), SCI_FI(2), ACTION(3), ADVENTURE(4), ROMANCE(5), "
                "DOCUMETRY(6), ANIMATION(7), DRAMA(8), FANTACY(9), BIOGRAPY(10), SUPERHERO(11), "
                "MYSTERY(12), SILENT(13), THRILLER(14).\n\tChoose Genre : ";
+    } else if (searchType == 7) {
+        std::cout << "\n\tHINDI(0), ENGLIS(1), MARATHI(2), TAMIL(3)\n\tChoose Language : ";
     } else {
         std::cout << "\n\t Search : ";
     }
@@ -64,7 +66,7 @@ error_e MovieApplication::searchMovie() {
     return Error::NO_ERROR;
 }
 
-error_e MovieApplication::updateMovieList(const list_operations_e& op) {
+auto MovieApplication::updateMovieList(const list_operations_e& op) -> error_e {
 
     error_e status = Error::NO_ERROR;
 

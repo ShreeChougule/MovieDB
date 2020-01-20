@@ -22,7 +22,7 @@ using u_int = unsigned int;
 /**
  * ! \brief language enum class
  */
-typedef enum class Language { HINDI = 0, ENGLIS, MARATHI, TAMIL } lanuguage_e;
+typedef enum Language { HINDI = 0, ENGLIS, MARATHI, TAMIL } lanuguage_e;
 /**
  * ! \brief list operations enum class
  */
@@ -38,6 +38,7 @@ typedef enum class FilterType {
     GENRE,
     CASTING,
     YEAR,
+    LANGUAGE,
     ALL
 } filter_type_e;
 
