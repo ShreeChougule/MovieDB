@@ -22,7 +22,7 @@ using u_int = unsigned int;
 /**
  * ! \brief language enum class
  */
-typedef enum Language { HINDI = 0, ENGLIS, MARATHI, TAMIL } lanuguage_e;
+typedef enum Language { HINDI = 0, ENGLISH, MARATHI, TAMIL } lanuguage_e;
 /**
  * ! \brief list operations enum class
  */
